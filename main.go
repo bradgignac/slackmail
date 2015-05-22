@@ -24,11 +24,14 @@ type Payload struct {
 }
 
 func main() {
+	port := os.Getenv("PORT")
+	addr := ":" + port
+
 	r := mux.NewRouter()
 	r.HandleFunc("/", receiveWebhook).
 		Methods("POST")
 
-	http.ListenAndServe("0.0.0.0:8000", r)
+	http.ListenAndServe(addr, r)
 }
 
 func receiveWebhook(w http.ResponseWriter, r *http.Request) {
