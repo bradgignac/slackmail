@@ -73,11 +73,12 @@ func postToSlack(from, body string) error {
 	hook := os.Getenv("SLACK_WEBHOOK_URL")
 	form := url.Values{"payload": {string(json)}}
 	resp, err := http.PostForm(hook, form)
-	defer resp.Body.Close()
 
 	if err != nil {
 		return err
 	}
+
+	defer resp.Body.Close()
 
 	return nil
 }
